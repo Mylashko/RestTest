@@ -1,7 +1,16 @@
 package com.mkyong.rest;
 
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+@Table (name="USER_DETAILS")
 public class LogPasPojo {
 
+
+    @Id @GeneratedValue
+
+    private int userId;
 
     public String getLogin() {
         return login;
@@ -20,7 +29,7 @@ public class LogPasPojo {
     }
 
     private String login;
-        private String pass; //it will store answer message or cancel message
+    private String pass; //it will store answer message or cancel message
 
 
 
