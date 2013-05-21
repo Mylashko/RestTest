@@ -1,0 +1,68 @@
+<html>
+<head>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+<h2>Create some JSON object that is nested/structured from a form</h2>
+
+<form id="form">
+    <input id="login" type="text" name="login" placeholder="enter login .."/>
+    <br>
+    <input id="Pass" type="text" name="pass" placeholder="enter pass .."/>
+    <br>
+
+    <input id="input" type="submit" name="submit" value="Post It"/>
+</form>
+<div id="result"></div>
+<script>
+    $.fn.formToJSON = function () {
+        var objectGraph = {};
+
+        function add(objectGraph, name, value) {
+            if (name.length == 1) {
+//if the array is now one element long, we're done
+                objectGraph[name[0]] = value;
+            }
+            else {
+//else we've still got more than a single element of depth
+                if (objectGraph[name[0]] == null) {
+//create the node if it doesn't yet exist
+                    objectGraph[name[0]] = {};
+                }
+//recurse, chopping off the first array element
+                add(objectGraph[name[0]], name.slice(1), value);
+            }
+        };
+//loop through all of the input/textarea elements of the form
+//this.find('input, textarea').each(function() {
+        $(this).children('input, textarea').each(function () {
+//ignore the submit button
+            if ($(this).attr('name') != 'submit') {
+//split the dot notated names into arrays and pass along with the value
+                add(objectGraph, $(this).attr('name').split('.'), $(this).val());
+            }
+        });
+        return JSON.stringify(objectGraph);
+    };
+
+    $.ajaxSetup({
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    });
+
+    $(document).ready(function () {
+        $('#input').click(function () {
+            var send = $("#form").formToJSON();
+            $.ajax({
+                url: "http://localhost:8081/rest/hello",
+                type: "POST",
+                data: send
+
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
