@@ -4,15 +4,21 @@
 </head>
 
 <body>
-<h2>Create some JSON object that is nested/structured from a form</h2>
+<h2>Post goods' data</h2>
 
 <form id="form">
-    <input id="login" type="text" name="login" placeholder="enter login .."/>
+    Input goods' name: <input id="goodsname" type="text" name="goodsname" placeholder="Name  .."/>
     <br>
-    <input id="Pass" type="text" name="pass" placeholder="enter pass .."/>
+    Input goods' vendor: <input id="goodsvendor" type="text" name="goodsvendor" placeholder="Vendor .."/>
+    <br>
+    Input goods' unit: <input id="goodsunit" type="text" name="goodsunit" placeholder="Unit .."/>
+    <br>
+    Input goods' type: <input id="goodstype" type="text" name="goodstype" placeholder="Type .."/>
+    <br>
+    Input goods' characteristics: <input id="goodscharacteristics" type="text" name="goodscharacteristics" placeholder="Phone number .."/>
     <br>
 
-    <input id="input" type="submit" name="submit" value="Post It"/>
+    <input id="input" type="submit" name="submit" value="Input into the database"/>
 </form>
 <div id="result"></div>
 <script>
@@ -55,7 +61,7 @@
         $('#input').click(function () {
             var send = $("#form").formToJSON();
             $.ajax({
-                url: "http://localhost:8081/rest/hello",
+                url: "http://localhost:8081/rest/goods",
                 type: "POST",
                 data: send
 

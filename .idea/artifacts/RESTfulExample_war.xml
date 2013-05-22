@@ -3,6 +3,15 @@
     <output-path>$PROJECT_DIR$/target</output-path>
     <root id="archive" name="RESTfulExample.war">
       <element id="artifact" artifact-name="RESTfulExample:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/jsr311-api-1.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/gson-1.1.jar" />
+          <element id="library" level="project" name="Derby" />
+          <element id="library" level="project" name="org.apache.derby:derbyclient:10.9.1.0" />
+          <element id="library" level="project" name="lib" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>
