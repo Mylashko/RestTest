@@ -14,17 +14,31 @@ import javax.ws.rs.core.Response;
 
 
 
-        @GET
-        @Path("/{param}")
-        public Response getMsg(@PathParam("param") String msg) {
+    @GET
+    @Path("/{param}")
+    public Response getMsg(@PathParam("param") int msg) {
 
-            String output = "Jersey say : " + msg;
 
-            return Response.status(200).entity(output).build();
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Vendor vp = (Vendor) session.get(Vendor.class, msg);
 
-        }
+        String output = "Vendor's name is : " + vp.getVendorname() +
+                "<br>Vendor's country is : " + vp.getVendorcountry() +
+                "<br>Vendor's city is : " + vp.getVendorcity() +
+                "<br>Vendor's adress is : " + vp.getVendoradress() +
+                "<br>Vendor's phone number is : " + vp.getVendorphone();
 
-        @POST
+        session.getTransaction().commit();
+        session.close();
+
+        return Response.status(200).entity(output).build();
+
+    }
+
+
+    @POST
         @Consumes(MediaType.APPLICATION_JSON)
         public Response getSent(String vendor) {
             Gson gs = new Gson();

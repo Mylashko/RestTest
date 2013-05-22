@@ -14,9 +14,22 @@ public class GoodsService {
 
     @GET
     @Path("/{param}")
-    public Response getMsg(@PathParam("param") String msg) {
+    public Response getMsg(@PathParam("param") int msg) {
 
-        String output = "Jersey say : " + msg;
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Goods gds = (Goods) session.get(Goods.class, msg);
+
+        String output = "Goods' name is : " + gds.getGoodsname() +
+                "<br>Goods' vendor is : " + gds.getGoodsvendor() +
+                "<br>Goods' type is : " + gds.getGoodstype() +
+                "<br>Goods' unit is : " + gds.getGoodsunit() +
+                "<br>Goods' characteristics is : " + gds.getGoodscharacteristics();
+
+        session.getTransaction().commit();
+        session.close();
 
         return Response.status(200).entity(output).build();
 
