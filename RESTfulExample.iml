@@ -18,8 +18,19 @@
       <configuration>
         <datasource-map>
           <unit-entry name="com:mkyong:rest:hibernate.cfg.xml" />
+          <unit-entry name="hibernate.cfg.xml" />
         </datasource-map>
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
+      </configuration>
+    </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="" />
+        <datasource-mapping>
+          <factory-entry name="hibernatedb" />
+        </datasource-mapping>
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/persistence.xml" />
       </configuration>
     </facet>
   </component>
@@ -56,6 +67,7 @@
     <orderEntry type="library" name="org.apache.derby:derbyclient:10.9.1.0" level="project" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.2" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.persistence:javax.persistence:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-server:1.8" level="project" />
     <orderEntry type="library" name="Maven: asm:asm:3.1" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.8" level="project" />
